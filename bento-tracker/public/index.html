@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便當價格觀測站 | 通膨追蹤</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🍱 便當價格觀測站</h1>
+            <p>紀錄你的生活通膨，從每一個便當開始。</p>
+        </header>
+
+        <main>
+            <section class="glass-card input-section">
+                <h2>新增便當價格紀錄</h2>
+                <form id="add-bento-form">
+                    <div class="form-group">
+                        <label for="date">日期</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">便當名稱</label>
+                        <input type="text" id="name" name="name" placeholder="例如：台鐵排骨便當" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">價格 (NTD)</label>
+                        <input type="number" id="price" name="price" placeholder="例如：100" min="0" required>
+                    </div>
+                    <button type="submit" class="btn-primary">新增紀錄</button>
+                </form>
+            </section>
+
+            <section class="glass-card list-section">
+                <div class="list-header">
+                    <h2>歷史紀錄</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="🔍 搜尋便當名稱...">
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table id="bento-table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>便當名稱</th>
+                                <th>價格 (NTD)</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bento-list">
+                            <!-- 資料會由 JavaScript 動態載入 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="loading" class="loading" style="display: none;">載入中...</div>
+                <div id="no-data" class="no-data" style="display: none;">找不到相符的紀錄 😢</div>
+            </section>
+        </main>
+        
+        <footer>
+            
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
