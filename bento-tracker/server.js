@@ -33,15 +33,34 @@ const db = new sqlite3.Database(dbPath, (err) => {
             price INTEGER NOT NULL
         )`);
         
-        // 如果是空的，塞入幾筆假資料
+        // 如果是空的，塞入近十年的假資料 (以展示通膨趨勢)
         db.get('SELECT COUNT(*) as count FROM bento_prices', (err, row) => {
             if (!err && row.count === 0) {
                 const stmt = db.prepare('INSERT INTO bento_prices (date, name, price) VALUES (?, ?, ?)');
-                stmt.run('2023-01-15', '台鐵排骨便當', 80);
-                stmt.run('2024-03-20', '大學學餐雞排飯', 90);
-                stmt.run('2025-05-01', '健康水煮餐盒', 120);
+                // 2014 - 2017：物價較平穩時期
+                stmt.run('2014-03-15', '巷口排骨便當', 65);
+                stmt.run('2015-06-20', '大學學餐雞腿飯', 70);
+                stmt.run('2016-09-10', '知名連鎖控肉便當', 75);
+                stmt.run('2017-12-05', '超商國民便當', 55);
+                
+                // 2018 - 2020：緩步上漲
+                stmt.run('2018-04-18', '巷口排骨便當', 75);
+                stmt.run('2019-08-22', '台鐵八角排骨便當', 80);
+                stmt.run('2020-05-11', '大學學餐雞腿飯', 80);
+                
+                // 2021 - 2023：通膨開始有感
+                stmt.run('2021-10-30', '知名連鎖控肉便當', 90);
+                stmt.run('2022-02-14', '巷口排骨便當', 90);
+                stmt.run('2023-07-25', '超商豪華便當', 99);
+                
+                // 2024 - 2025：百元便當時代、健康餐盒興起
+                stmt.run('2024-03-20', '大學學餐雞排飯', 95);
+                stmt.run('2024-11-10', '巷口排骨便當', 105);
+                stmt.run('2025-01-05', '台鐵特製排骨便當', 100);
+                stmt.run('2025-05-01', '健身水煮餐盒', 130);
+                
                 stmt.finalize();
-                console.log('Inserted default bento data.');
+                console.log('Inserted 10-year historical bento data.');
             }
         });
     }
